@@ -38,12 +38,20 @@ class Vector
 public:
     Vector& Vector::operator(const Matrix& m);
     // ...
+private:
+    Matrix *pm;
 };
+```
+**需要注意的一点是**，要操作pm成员的函数就**只能定义在cpp文件中了哦！（曲线救国，在cpp文件中包含Matrix.h**，因为在.h中定义，pm是不完整类型。
+```
+#include "vector.h"
 class Matrix
 {
 public:
     Vector& Matrix::operator(const Vector& v);
     // ...
+private:
+    Vector *pv;
 }
 ```
 在前向声明Matrix后，Vector认为确实有这样的一个Matrix存在，也就是**有了声明，但没有定义**，和在.h中声明普通函数是一个道理，只要有声明，就能知道其**类型**。
