@@ -36,3 +36,6 @@ MSL是指maximum segement liftime，2MSL就是指他的两倍了。发送ack后�
 ## 如何优雅的处理TIME_WAIT
 1. 服务端打开keep-alive，让客户端主动去关闭连接，反正谁主动关谁TIME_WAIT呗
 2. 开启（net.ipv4.tcp_tw_reuse）端口复用和（net.ipv4.tcp_timestamps）TCP时间戳，前者依赖后者。开启了TCP时间戳选项后，任意一个TCP数据包都会包含发送它时的时间和最近一次接收到它的时间，如果“影分身”发现来的数据包已经是前任的了（通过时间戳判断），就直接丢弃
+
+## 如果两边同时发FIN怎么办？
+每端只挥手一次（只发一次FIN），也只ack一次，但是两端都要进入**TIME_WAIT**
