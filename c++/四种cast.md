@@ -11,7 +11,7 @@
 把需要通过vecotr<Base *>调用的Derive的能力想好，做成Base的virtual函数，就不需要转型了。或者使用多个vector保存不同类型的Derive
 
 ## reinterpret_cast<T>(expression)
-整形数字和指针之间进行强制转换，常用于low-level代码
+整形数字和指针之间、不同类型之指针进行强制转换，常用于low-level代码
 
 ## static_cast<T>(expression)
 和C style的强制转化差不多，比较粗暴。但是无法把const转换为non-const，只能把non-const转换为const
