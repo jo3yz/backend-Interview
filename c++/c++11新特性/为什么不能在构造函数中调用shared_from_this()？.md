@@ -12,12 +12,12 @@ enable_shared_from_this<T>就是为了解决这个问题，通过在成员函数
 
 
 ## 为什么不能在构造函数中调用？
-因为Foo没有构造完毕的时候，外部的控制块都还没创建呢，所以要创建一个共享外部控制块的shared_ptr更不可能啦
+因为weak_ptr只能通过shared_ptr来初始化，所以如果T都还没构造好，那么shared_ptr<T>就更没有初始化好了
 
 ## 为什么继承自enable_shared_from_this<T>的类只能分配在堆上？
 废话吗不是，有用shared_ptr<T>管理堆内存的吗？delete栈内存那runtime就崩了
 
 ## enable_shared_from_this<T>的实现原理
-
+内部有一个weak_ptr，使用weak_ptr的lock方法来作为shared_from_this的返回值
 
 ## 为什么不能私有继承？
