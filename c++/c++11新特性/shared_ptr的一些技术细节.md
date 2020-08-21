@@ -14,6 +14,7 @@ auto func = std::bind(Foo::Bar, ptr);
 - 这意味着即使Base类的析构函数不是virtual，用shared_ptr<Base>管理Derive类的内存，当引用计数为0需要释放内存时，也可以正确的调用派生类的析构函数
 - 这个实现和OO范式的方法不太一样，OO的方法猜测是通过虚表找到其实际类型的虚构造函数，而shared_ptr<Base>构造时就记下了实际管理的类型，用于初始化一个deleter<Derive>，在析构时将调用这个deleter，把基类指针直接static_cast为派生类指针，就不需要通过虚表了
 - 也就是说，shared_ptr<void>可以安全持有任何对象
+- 是不是有点静态多态内味儿了？
 
 ## 析构是同步的
 在哪个线程中use_count变为0，就在哪个线程析构
