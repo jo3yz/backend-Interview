@@ -1,0 +1,3 @@
+但是在每个线程一个Epoller的情况下就不太好了，全局一个Epoller的话还不错
+
+但是全局一个Epoller的话又要解决epoll_wait返回惊群的问题，脑阔疼

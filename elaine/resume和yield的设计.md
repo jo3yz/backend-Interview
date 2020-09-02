@@ -1,0 +1,3 @@
+resume不能是static，而yield是static
+
+因为yield的语义是切出当前协程，所以不需要显式地拿到当前协程的指针
