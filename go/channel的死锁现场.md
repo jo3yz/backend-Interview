@@ -29,4 +29,20 @@ c3 <- 1
 
 ## 有缓冲的channel
 
-使用for-range方式遍历channel之前，必须先close它，不然会死锁。但是使用for-count方式不用
+使用for range方式遍历channel之前，必须先close它，不然会死锁。但是使用三段式for不用
+
+理由？
+
+因为对channel的for range遍历会生成类似的代码
+
+```go
+ha := a
+hv1, hb := <-ha
+for ; hb != false; hv1, hb = <-ha {
+    v1 := hv1
+    hv1 = nil
+    ...
+}
+```
+
+可以看到，循环的结束条件是hb == false，而只有有缓冲channel被close之后，才会得到为false的布尔值。所以使用for range遍历一个没有close的channel，会一直阻塞在hv1, hb := <-ha上。
